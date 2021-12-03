@@ -1,0 +1,246 @@
+# ███████╗██╗░░██╗██╗░░██╗██╗░░██╗██████╗░██████╗░░██████╗               # ██╔════╝╚██╗██╔╝██║░░██║██║░██╔╝██╔══██╗██╔══██╗██╔════╝
+# ███████╗░╚███╔╝░███████║█████╔╝░██║░░██║██████╔╝██║░░░░░
+# ╚════██║░██╔██╗░██╔══██║██╔═██╗░██║░░██║██╔══██╗██║░░░░░
+# ███████║██╔╝░██╗██║░░██║██║░░██╗██████╔╝██║░░██║╚██████╗
+# ╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝░╚═════╝
+
+# Reload sxhkdrc super + esc
+
+# Reload .Xresources
+alt + shift + r
+    xrdb ~/.Xresources
+
+
+# Productive mode bspwm
+super + p 
+    python /home/$USER/.scripts/productive-mode.py
+
+# ░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+# ░░ WM INDEPENDENT HOTKEYS ░░
+# ░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+# Documents
+alt + shift + d + c
+    urxvt -e ~/Documents
+
+# Reload bspwmrc
+super + r
+	/home/$USER/.config/bspwm/bspwmrc
+
+# Urxvt
+alt + Return
+    urxvt
+ 
+alt + shift + Return
+	urxvt -name URxvtFloat
+
+# Dev
+alt + d
+    urxvt -cd '/home/arch/dev'
+
+# Xterm
+alt + t
+	xterm
+
+# Firefox
+alt + w
+	firefox
+
+# Google Chrome
+super + c
+    google-chrome-stable
+
+# Google Chrome
+super + shift + c
+    chromium --allow-file-access-from-files
+
+# Zoom
+super + z
+    exec /usr/bin/zoom
+
+# Slack
+super + s
+    slack
+
+# Vscode
+alt + v
+	code
+
+# Android Studio
+alt + a
+  android-studio
+
+# QtCreator
+alt + shift + c
+    qtcreator
+
+# Virtualbox
+alt + shift + v
+	VirtualBox
+
+# Wireshark
+alt + shift + w + s
+    exec wireshark
+
+# Libreoffice
+alt + shift + l + o
+    libreoffice
+
+# Genymotion
+alt + c
+    genymotion
+
+# Htop
+alt + h + t
+	htop
+
+# Ranger
+alt + r
+	urxvt -e ranger
+
+# Discord
+alt + shift + d
+	discord
+
+# NCMPCPP
+alt + n
+	ncmpcpp
+
+# Screenshot
+Print
+	scrot '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Pictures/screenshots/'
+
+ctrl + Print
+	scrot -d 3 '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Pictures/screenshots'
+
+# Screenlock
+super + BackSpace
+    exec /home/$USER/.scripts/lockscreen.sh
+
+# Xsnow
+alt + shift + s
+    exec xsnow -snowflakes 350 -windtimer 100 -delay 40 -nosanta -notrees
+
+# Make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+# Wallpaper cycle
+super + w
+	exec /home/$USER/.scripts/walcycle.sh
+
+# Urxvt transparency
+super + t
+	exec /home/$USER/.scripts/transparency.sh
+
+# Volume
+super + {Right,Up,Left,Down}
+    amixer set Master {1%+,5%+,1%-,5%-}
+
+#  ▌                 ▌     ▐  ▌
+#  ▛▀▖▞▀▘▛▀▖▌  ▌▛▚▀▖ ▛▀▖▞▀▖▜▀ ▌▗▘▞▀▖▌ ▌▞▀▘
+#  ▌ ▌▝▀▖▙▄▘▐▐▐ ▌▐ ▌ ▌ ▌▌ ▌▐ ▖▛▚ ▛▀ ▚▄▌▝▀▖
+#  ▀▀ ▀▀ ▌   ▘▘ ▘▝ ▘ ▘ ▘▝▀  ▀ ▘ ▘▝▀▘▗▄▘▀▀
+
+
+# quit bspwm normally
+super + alt + Escape
+	bspc quit
+
+# close and kill
+alt + {_,shift + }q
+	bspc node -{c,k}
+
+# alternate between the tiled and monocle layout
+alt + f
+	bspc desktop -l next
+
+# send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+# swap the current node and the biggest node
+alt + g
+	bspc node -s biggest
+
+#
+# state/flags
+#
+
+# set the window state
+alt + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+super + ctrl + {m,x,y,z}
+	bspc node -g {marked,locked,sticky,private}
+
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+alt + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+alt + {p,b,comma,period}
+	bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous node in the current desktop
+super + {_,shift + }c
+	bspc node -f {next,prev}.local
+
+# focus the next/previous desktop in the current monitor
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# focus the last node/desktop
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# focus or send to the given desktop
+alt + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+#
+# preselect
+#
+
+# preselect the direction
+alt + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+#
+# move/resize
+#
+
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move a floating window
+alt + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
